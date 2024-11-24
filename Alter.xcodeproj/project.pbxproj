@@ -457,6 +457,8 @@
 				DEVELOPMENT_TEAM = 2XP9QL2P9S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Alter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -485,6 +487,8 @@
 				DEVELOPMENT_TEAM = 2XP9QL2P9S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Alter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
