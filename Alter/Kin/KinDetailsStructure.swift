@@ -12,6 +12,12 @@ import Foundation
 //  This holds the structure of the Kin/Personality Profile to be written and
 //  read from a JSON object (the basis that the details will be saved in
 //
-struct KinDetailsStructure : Codeable, NSObject {
-    
+struct KinDetailsStructure : Codable {
+    var name: String
+    var species: String
+    var awakenDate: String
+    var biography: String
+    var spirtualExperience: Bool
+    var physicalExperience: Bool
+    var psychologicalExperiences: Bool
 }
