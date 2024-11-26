@@ -43,6 +43,12 @@ class KinPersonalityManagerViewController : UIViewController{
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Attempt to decode the JSON file to struct
+       let profileManager = KinFileManagerEncoderAndDecoder()
+        let profileLOADTEST = profileManager.loadProfile(profileID: 1)
+        
+        print("\(profileLOADTEST.name): \(profileLOADTEST.species)")
     }
     
     

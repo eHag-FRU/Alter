@@ -31,7 +31,7 @@ class KinFileManagerEncoderAndDecoder {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first else { return }
         
         self.kinJSONDirectory = documentsDirectory.appendingPathComponent("kinProfiles")
-
+        
         //Now check if the directory exists, on first run it will not
         //So will only create if it does NOT exist
         var isDirectory: ObjCBool = true
@@ -57,8 +57,13 @@ class KinFileManagerEncoderAndDecoder {
         return data!
     }
     
-    private func decodeProfile() -> Void {
+    private func decodeProfile(profileJSONDate: Data) -> KinDetailsStructure {
+        //Set up the decoder
+        let jsonDecorder = JSONDecoder()
         
+        let decodedData = try! jsonDecorder.decode(KinDetailsStructure.self, from: profileJSONDate)
+        
+        return decodedData
     }
     
     public func saveProfile(profileDetails: Dictionary<String, String>) -> Void {
@@ -85,7 +90,7 @@ class KinFileManagerEncoderAndDecoder {
         //Determine if in edit mode
         if (!editMode) {
             //Now generate the file name
-             fileName = kinJSONDirectory.absoluteString + "/\(profileDetails["kinName"]!)_\(KinFileManagerEncoderAndDecoder.profileID).json"
+            fileName = kinJSONDirectory.absoluteString + "\(KinFileManagerEncoderAndDecoder.profileID).json"
             
             
             //Update the ID so the next profile is valid
@@ -94,10 +99,43 @@ class KinFileManagerEncoderAndDecoder {
         
         //Now write it into the file
         let successfulCreation = fileManager.createFile(atPath: fileName,
-                               contents: profileContentToWriteToFile)
+                                                        contents: profileContentToWriteToFile)
         
         print("Created file \(fileName)?: \(successfulCreation)")
         
+    }
+    
+    func loadProfile(profileID: Int) -> KinDetailsStructure{
+        //This will hold the profile when loaded
+        //nil is given if the profile is not found
+        var profileDetails : KinDetailsStructure = KinDetailsStructure(kinName: "", kinSpecies: "")
+        
+        //Grab the file from the file manager
+        let loadProfileFileManager = FileManager.default
+        let loadProfileFileManagerPath = kinJSONDirectory.appendingPathComponent("\(profileID).json")
+        guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first else { return profileDetails}
+        let numberOfItems = try! FileManager.default.contentsOfDirectory(atPath:documentsPath.absoluteString ).count
+        
+        print(loadProfileFileManagerPath)
+        print("Number of files in the path: \(numberOfItems)")
+        
+        if (loadProfileFileManager.fileExists(atPath: loadProfileFileManagerPath.absoluteString)) {
+            //File exists, now we are safe to read from it
+            //let profileData = loadProfileFileManager.contents(atPath: loadProfileFileManagerPath.absoluteString)
+            
+            //Now send it to decode to get the profile struct back
+            profileDetails = decodeProfile(profileJSONDate: try! Data(contentsOf: loadProfileFileManagerPath))
+        } else {
+            print("COULD NOT FIND PROFILE WITH ID \(profileID)")
+        }
+        
+        
+        
+        
+        //let profileJSONFile = FileManager.default.urls(for: kinJSONDirectory, in: .userDomainMask).first else { return }
+        
+        
+        return profileDetails
     }
     
     
