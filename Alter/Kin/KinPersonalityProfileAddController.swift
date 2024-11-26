@@ -21,6 +21,7 @@ class KinPersonalityProfileAddController : UITableViewController {
     @IBOutlet weak var KinPersonalitySpeciesTextField: UITextField!
     @IBOutlet weak var KinPersonalityName: UITextField!
     @IBOutlet weak var KinPersonalitySaveButton: UIButton!
+    @IBOutlet weak var KinPersonalityCancelButton: UIButton!
     
     
     //
@@ -42,6 +43,17 @@ class KinPersonalityProfileAddController : UITableViewController {
         //Now encode the text from the form
         addSaver.saveProfile(profileDetails: profileDetails)
         
+        //Now dismiss it after the save
+        dismiss(animated: true)
+        
+    }
+    
+    
+    @IBAction func KinPersonalityCancelButtonPressed(_ sender: UIButton) {
+        
+        //Dismiss the modal to bring back to the view that is the
+        //list of kin/personalities
+        dismiss(animated: true)
     }
     
     

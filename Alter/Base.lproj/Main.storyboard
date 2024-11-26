@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjG-gT-6Dd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -21,7 +21,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-27"/>
+            <point key="canvasLocation" x="-163" y="-392"/>
+        </scene>
+        <!--Kin Personality Manager View Controller-->
+        <scene sceneID="b5a-75-Xuo">
+            <objects>
+                <viewController id="Ovv-IC-R4B" customClass="KinPersonalityManagerViewController" customModule="Alter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Jx-5W-tSC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AJA-XX-Opx">
+                                <rect key="frame" x="16" y="116" width="361" height="702"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8xt-co-96O"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="KinPersonalityTable" destination="AJA-XX-Opx" id="RVK-lH-guU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Opi-Cj-rU2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="840" y="-547"/>
         </scene>
         <!--KinPersonalityProfileAdd-->
         <scene sceneID="HXu-aK-6Yy">
@@ -119,6 +144,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                                    <connections>
+                                                        <action selector="KinPersonalityCancelButtonPressed:" destination="jjG-gT-6Dd" eventType="touchUpInside" id="Ihd-LK-l35"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -131,7 +159,9 @@
                             <outlet property="delegate" destination="jjG-gT-6Dd" id="Bju-js-V4S"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="z4M-Mo-lmV"/>
                     <connections>
+                        <outlet property="KinPersonalityCancelButton" destination="Q2B-sS-LNE" id="ZXb-r5-2ut"/>
                         <outlet property="KinPersonalityName" destination="CNS-ro-KY9" id="D6F-9X-lOy"/>
                         <outlet property="KinPersonalitySaveButton" destination="EqD-nJ-pRp" id="MOt-wz-OH3"/>
                         <outlet property="KinPersonalitySpeciesTextField" destination="lhC-qN-dNx" id="kgg-1m-BSz"/>
@@ -140,7 +170,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IXp-R3-MOq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1194.6564885496182" y="-87.323943661971839"/>
+            <point key="canvasLocation" x="1711" y="-547"/>
         </scene>
     </scenes>
     <resources>
