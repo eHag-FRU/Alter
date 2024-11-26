@@ -76,6 +76,8 @@ class KinFileManagerEncoderAndDecoder {
         //Now encode it
         let profileContentToWriteToFile = encodeProfile(profile: currentProfile)
         
+        print(profileContentToWriteToFile)
+        
         print("NOW CREATING FILE!!")
         
         var fileName = String()
