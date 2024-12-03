@@ -15,7 +15,7 @@ class KinFileManagerEncoderAndDecoder {
     //This will hold the global ID of the next profile to be assigned
     //This will allow for a unique profile to be saved for many kin/personalities
     //of the same name and species
-    private static var profileID : Int = 1
+    private var profileID : Int = 1
     
     private let fileManager = FileManager.default
     
@@ -35,12 +35,15 @@ class KinFileManagerEncoderAndDecoder {
         //Now check if the directory exists, on first run it will not
         //So will only create if it does NOT exist
         var isDirectory: ObjCBool = true
-        if (!FileManager.default.fileExists(atPath: self.kinJSONDirectory.absoluteString, isDirectory: &isDirectory)) {
+        if (!FileManager.default.fileExists(atPath: self.kinJSONDirectory.path, isDirectory: &isDirectory)) {
             //Directory does not exist, so create it!
             try! fileManager.createDirectory(at: kinJSONDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         
-        print(documentsDirectory)
+        //Now need to set the profile id to keep going from as the count of files plus 1
+        self.profileID = highestID()
+        
+        //print(documentsDirectory)
     }
     
     private func encodeProfile(profile: KinDetailsStructure) -> Data {
@@ -90,11 +93,11 @@ class KinFileManagerEncoderAndDecoder {
         //Determine if in edit mode
         if (!editMode) {
             //Now generate the file name
-            fileName = kinJSONDirectory.absoluteString + "\(KinFileManagerEncoderAndDecoder.profileID).json"
+            fileName = kinJSONDirectory.path + "/\(profileID).json"
             
             
             //Update the ID so the next profile is valid
-            KinFileManagerEncoderAndDecoder.profileID += 1
+            profileID += 1
         }
         
         //Now write it into the file
@@ -114,12 +117,12 @@ class KinFileManagerEncoderAndDecoder {
         let loadProfileFileManager = FileManager.default
         let loadProfileFileManagerPath = kinJSONDirectory.appendingPathComponent("\(profileID).json")
         guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first else { return profileDetails}
-        let numberOfItems = try! FileManager.default.contentsOfDirectory(atPath:documentsPath.absoluteString ).count
+        let numberOfItems = try! FileManager.default.contentsOfDirectory(atPath:documentsPath.path ).count
         
-        print(loadProfileFileManagerPath)
-        print("Number of files in the path: \(numberOfItems)")
+        //print(loadProfileFileManagerPath)
+        //print("Number of files in the path: \(numberOfItems)")
         
-        if (loadProfileFileManager.fileExists(atPath: loadProfileFileManagerPath.absoluteString)) {
+        if (loadProfileFileManager.fileExists(atPath: loadProfileFileManagerPath.path)) {
             //File exists, now we are safe to read from it
             //let profileData = loadProfileFileManager.contents(atPath: loadProfileFileManagerPath.absoluteString)
             
@@ -138,6 +141,43 @@ class KinFileManagerEncoderAndDecoder {
         return profileDetails
     }
     
+    func count() -> Int {
+        return try! FileManager.default.contentsOfDirectory(atPath: self.kinJSONDirectory.path).count
+
+    }
     
+    func highestID() -> Int {
+        //Grab the file names
+        var profileIDs = profileNames()
+        
+        //Now sort them, by asscending
+        profileIDs.sort(by:>)
+        
+        if (profileIDs.count > 0) {
+            //If there are profiles now set the profile ID to the largest plus 1
+            return profileIDs[0] + 1
+        }
+        
+        //Else there are no profiles, so the start is 1
+        return 1
+    }
+    
+    func profileNames() -> [Int] {
+        //Grabs the fileURLs
+        var fileURLs = try! fileManager.contentsOfDirectory(at: self.kinJSONDirectory, includingPropertiesForKeys: nil)
+        
+        //Will hold the names
+        var fileNames : [Int] = []
+        
+        //Removes the path and the file extension and adds it to the array
+        //0s will be treated as invalid profile names and invalid profiles
+        for url in fileURLs {
+            fileNames.append(Int(url.deletingPathExtension().lastPathComponent) ?? 0)
+        }
+        
+        
+        return fileNames
+        
+    }
     
 }

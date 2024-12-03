@@ -8,19 +8,27 @@
 import Foundation
 import UIKit
 
-class KinPersonalityManagerViewController : UIViewController{
+class KinPersonalityManagerViewController : UIViewController, UITableViewDelegate,
+UITableViewDataSource {
+    
+    //Holds the list of profiles loaded
+    var profiles: [KinDetailsStructure] = []
+    
     
     
     //
     //  Variables & Constants
     //
-    
+    var kinProfileDataSource : KinFileManagerEncoderAndDecoder = KinFileManagerEncoderAndDecoder()
     
     //
     //  IBOutlets
     //
     @IBOutlet weak var KinPersonalityTable: UITableView!
     
+    @IBSegueAction func KinListToAdd(_ coder: NSCoder, sender: Any?) -> KinPersonalityProfileAddController? {
+        return <#KinPersonalityProfileAddController(coder: coder)#>
+    }
     //
     //  IBActions
     //
@@ -30,13 +38,43 @@ class KinPersonalityManagerViewController : UIViewController{
     //
     //  Functions
     //
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 4
+    func loadProfiles() -> Void {
+        //Grab the count of the profiles
+        let profileCount = kinProfileDataSource.count()
+        
+        //Grab each of the profile names
+        let profileFileNames = kinProfileDataSource.profileNames()
+        
+        //Go through each of the profiles
+        for profileName in profileFileNames {
+            if (profileName > 0) {
+                //Grab and decode the profile
+                let currentProfile = kinProfileDataSource.loadProfile(profileID: profileName)
+                
+                //Adds the profile to the list
+                profiles.append(currentProfile)
+            }
+        }
     }
     
-    //func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //return KinPersonalityCell
-    //}
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //Gets the number of profiles to indicate the number of cells there will be
+        return kinProfileDataSource.count()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //Create the cell that was prototyped in the interface builder
+        let cell = KinPersonalityTable.dequeueReusableCell(withIdentifier: "kinPersonalityProfileCell", for: indexPath)
+        
+        
+        //Configure the cells contents with each profile's details
+        cell.textLabel?.text = profiles[indexPath.row].name
+        
+        return cell
+        
+    }
     
     //
     //  Function Overrides
@@ -44,12 +82,32 @@ class KinPersonalityManagerViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Attempt to decode the JSON file to struct
-       let profileManager = KinFileManagerEncoderAndDecoder()
-        let profileLOADTEST = profileManager.loadProfile(profileID: 1)
         
-        print("\(profileLOADTEST.name): \(profileLOADTEST.species)")
+        
+        //Set the datasource
+        KinPersonalityTable.delegate = self
+        KinPersonalityTable.dataSource = self
+        loadProfiles()
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("VIEW APPEARING!!!")
+        
+        //Clear the profiles present
+        profiles.removeAll(keepingCapacity: false)
+        
+        //Reload the array
+        loadProfiles()
+        
+        print("viewWillAppear profile count: \(profiles.count)")
+        
+        //reload the table data
+        KinPersonalityTable.reloadData()
+    }
+    
     
     
 }
