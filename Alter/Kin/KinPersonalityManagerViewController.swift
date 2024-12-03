@@ -26,9 +26,7 @@ UITableViewDataSource {
     //
     @IBOutlet weak var KinPersonalityTable: UITableView!
     
-    @IBSegueAction func KinListToAdd(_ coder: NSCoder, sender: Any?) -> KinPersonalityProfileAddController? {
-        return <#KinPersonalityProfileAddController(coder: coder)#>
-    }
+    
     //
     //  IBActions
     //

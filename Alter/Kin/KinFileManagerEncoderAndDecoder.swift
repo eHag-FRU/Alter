@@ -180,4 +180,15 @@ class KinFileManagerEncoderAndDecoder {
         
     }
     
+    func deleteAllProfiles() -> Void {
+        //Grab all of the files in the directory
+        let files = try! FileManager.default.contentsOfDirectory(at: kinJSONDirectory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+        
+        //Iterate through the files, only grabbing the JSON files
+        for file in files where file.pathExtension == "json" {
+            try! FileManager.default.removeItem(at: file)
+        }
+        
+    }
+    
 }
