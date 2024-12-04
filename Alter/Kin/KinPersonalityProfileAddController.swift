@@ -12,6 +12,9 @@ class KinPersonalityProfileAddController : UITableViewController {
     //
     //  Variables and Constants
     //
+    var profileManager : KinPersonalityManagerViewController?
+    
+    var selectedData: KinDetailsStructure?
     
     
     //
@@ -22,7 +25,8 @@ class KinPersonalityProfileAddController : UITableViewController {
     @IBOutlet weak var KinPersonalityName: UITextField!
     @IBOutlet weak var KinPersonalitySaveButton: UIButton!
     @IBOutlet weak var KinPersonalityCancelButton: UIButton!
-    
+    @IBOutlet weak var KinPersonalityAwakenDatePicker: UIDatePicker!
+    @IBOutlet weak var KinPersonalityBiography: UITextView!
     
     //
     //  IBActions
@@ -38,7 +42,19 @@ class KinPersonalityProfileAddController : UITableViewController {
         //Pull each control and save into the dictonary
         profileDetails["kinName"] = KinPersonalityName.text
         profileDetails["kinSpecies"] = KinPersonalitySpeciesTextField.text
+        //profileDetails["kinBiography"] = KinPersonalityBiography.text
         
+        //Code from:
+        //https:\/\/stackoverflow
+        //.com/questions/26667618/how-to-get-data-from-uidatepicker-swift
+        //Grab the Date
+        let timeFormatter = DateFormatter()
+            timeFormatter.dateStyle = DateFormatter.Style.short
+
+        var strDate = timeFormatter.string(from: KinPersonalityAwakenDatePicker.date)
+        
+        //Add the date to the profileDetails dictonary
+        profileDetails["kinAwakenDate"] = strDate
         
         //Now encode the text from the form
         addSaver.saveProfile(profileDetails: profileDetails)
@@ -64,6 +80,33 @@ class KinPersonalityProfileAddController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Making valid date constraint to be up to the current day
+        KinPersonalityAwakenDatePicker.maximumDate = Date.now
+        
+        //Check if the data is not nil
+        if ((selectedData) != nil) {
+            print("Has Data")
+        }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if let profileM = profileManager {
+            
+            //print("VIEW APPEARING!!!")
+            
+            //Clear the profiles present
+            profileM.profiles.removeAll(keepingCapacity: false)
+            
+            //Reload the array
+            profileM.loadProfiles()
+            
+            print("viewWillAppear profile count: \(profileM.profiles.count)")
+            
+            //reload the table data
+            profileM.KinPersonalityTable.reloadData()
+        }
     }
     
     

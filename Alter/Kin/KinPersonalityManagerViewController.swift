@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class KinPersonalityManagerViewController : UIViewController, UITableViewDelegate,
-UITableViewDataSource {
+                                            UITableViewDataSource {
+    
     
     //Holds the list of profiles loaded
     var profiles: [KinDetailsStructure] = []
@@ -20,6 +21,8 @@ UITableViewDataSource {
     //  Variables & Constants
     //
     var kinProfileDataSource : KinFileManagerEncoderAndDecoder = KinFileManagerEncoderAndDecoder()
+    
+    var dataToEdit: KinDetailsStructure?
     
     //
     //  IBOutlets
@@ -41,11 +44,18 @@ UITableViewDataSource {
         let profileCount = kinProfileDataSource.count()
         
         //Grab each of the profile names
-        let profileFileNames = kinProfileDataSource.profileNames()
+        var profileFileNames = kinProfileDataSource.profileNames()
+        
+        //Remove the .DS_Store element that Macs add automatically
+        //var profileNames = tempProfiles.filter {$0.contains(".DS_Store")}
         
         //Go through each of the profiles
         for profileName in profileFileNames {
+            
+            print(type(of: profileName))
             if (profileName > 0) {
+                print("Currently loading profile number \(profileName)")
+                
                 //Grab and decode the profile
                 let currentProfile = kinProfileDataSource.loadProfile(profileID: profileName)
                 
@@ -53,11 +63,15 @@ UITableViewDataSource {
                 profiles.append(currentProfile)
             }
         }
+        
+        
+        print(profileFileNames)
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //Gets the number of profiles to indicate the number of cells there will be
+        print(kinProfileDataSource.count())
         return kinProfileDataSource.count()
     }
     
@@ -66,13 +80,22 @@ UITableViewDataSource {
         //Create the cell that was prototyped in the interface builder
         let cell = KinPersonalityTable.dequeueReusableCell(withIdentifier: "kinPersonalityProfileCell", for: indexPath)
         
+        //Catches to see if there are no profiles, if there are profiles, then
+        //load them, if not, dont add text
+        if (kinProfileDataSource.count() > 0) {
+            //Configure the cells contents with each profile's details
+            cell.textLabel?.text = profiles[indexPath.row].name
+        }
         
-        //Configure the cells contents with each profile's details
-        cell.textLabel?.text = profiles[indexPath.row].name
+        dataToEdit = profiles[indexPath.row]
+        
+        
         
         return cell
         
     }
+    
+    
     
     //
     //  Function Overrides
@@ -85,17 +108,7 @@ UITableViewDataSource {
         //Set the datasource
         KinPersonalityTable.delegate = self
         KinPersonalityTable.dataSource = self
-        loadProfiles()
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("VIEW APPEARING!!!")
-        
-        //Clear the profiles present
-        profiles.removeAll(keepingCapacity: false)
         
         //Reload the array
         loadProfiles()
@@ -104,6 +117,24 @@ UITableViewDataSource {
         
         //reload the table data
         KinPersonalityTable.reloadData()
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profileManagerToAddEdit" {
+            
+            //Grabs the next segue
+            let vc = segue.destination as? KinPersonalityProfileAddController
+            
+            //Sets the profileManager view controller instance
+            vc?.profileManager = self
+            
+            //Passes over the data to edit
+            if let data = dataToEdit {
+                vc?.selectedData = data
+            }
+        }
     }
     
     

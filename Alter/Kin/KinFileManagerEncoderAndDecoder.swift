@@ -78,7 +78,9 @@ class KinFileManagerEncoderAndDecoder {
         /* TESTING: NEED TO MAKE FOR ALL FIELDS */
         let currentProfile = KinDetailsStructure(
             kinName: profileDetails["kinName"]!,
-            kinSpecies: profileDetails["kinSpecies"]!
+            kinSpecies: profileDetails["kinSpecies"]!,
+            kinAwakenDate: profileDetails["kinAwakenDate"]!
+            //biography:  profileDetails["kinBiography"]!
         )
         
         //Now encode it
@@ -111,7 +113,7 @@ class KinFileManagerEncoderAndDecoder {
     func loadProfile(profileID: Int) -> KinDetailsStructure{
         //This will hold the profile when loaded
         //nil is given if the profile is not found
-        var profileDetails : KinDetailsStructure = KinDetailsStructure(kinName: "", kinSpecies: "")
+        var profileDetails : KinDetailsStructure = KinDetailsStructure(kinName: "", kinSpecies: "", kinAwakenDate: "")
         
         //Grab the file from the file manager
         let loadProfileFileManager = FileManager.default
@@ -142,7 +144,9 @@ class KinFileManagerEncoderAndDecoder {
     }
     
     func count() -> Int {
-        return try! FileManager.default.contentsOfDirectory(atPath: self.kinJSONDirectory.path).count
+        return try! FileManager.default.contentsOfDirectory(atPath: self.kinJSONDirectory.path).filter({(fileName:String)->Bool in
+                return fileName != ".DS_Store"
+        }).count
 
     }
     
@@ -164,7 +168,9 @@ class KinFileManagerEncoderAndDecoder {
     
     func profileNames() -> [Int] {
         //Grabs the fileURLs
-        var fileURLs = try! fileManager.contentsOfDirectory(at: self.kinJSONDirectory, includingPropertiesForKeys: nil)
+        var fileURLs = try! fileManager.contentsOfDirectory(at: self.kinJSONDirectory, includingPropertiesForKeys: nil).filter({(fileName:URL)->Bool in
+            return !fileName.path().contains(".DS_Store")
+        })
         
         //Will hold the names
         var fileNames : [Int] = []
@@ -172,9 +178,17 @@ class KinFileManagerEncoderAndDecoder {
         //Removes the path and the file extension and adds it to the array
         //0s will be treated as invalid profile names and invalid profiles
         for url in fileURLs {
-            fileNames.append(Int(url.deletingPathExtension().lastPathComponent) ?? 0)
+            let currentFileName = Int(url.deletingPathExtension().lastPathComponent)
+            
+            //Only add if the file actually exists, 0 is an id of a file that does not exist
+            if(currentFileName ?? 0  > 0) {
+                fileNames.append(currentFileName!)
+            }
+            
         }
         
+        
+        print("KinFileManagerEncoderAndDecoder Names: \(fileNames)")
         
         return fileNames
         

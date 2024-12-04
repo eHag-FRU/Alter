@@ -15,14 +15,16 @@ import Foundation
 struct KinDetailsStructure : Codable {
     var name: String
     var species: String
-    //var awakenDate: String
+    var awakenDate: String
     //var biography: String
     //var spirtualExperience: Bool
     //var physicalExperience: Bool
     //var psychologicalExperiences: Bool
     
-    init(kinName: String, kinSpecies: String) {
+    init(kinName: String, kinSpecies: String, kinAwakenDate: String) {
         self.name = kinName
         self.species = kinSpecies
+        self.awakenDate = kinAwakenDate
+        //self.biography = biography
     }
 }
