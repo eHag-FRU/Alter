@@ -16,6 +16,8 @@ class KinPersonalityProfileAddController : UITableViewController {
     
     var selectedData: KinDetailsStructure?
     
+    var inEditMode: Bool = false
+    
     
     //
     //  IBOutlets
@@ -100,6 +102,16 @@ class KinPersonalityProfileAddController : UITableViewController {
         //Add the date to the profileDetails dictonary
         profileDetails["kinAwakenDate"] = strDate
         
+        //Now check if in edit mode, if so, set
+        //the profile details profileID to the
+        //same profile id found in the file
+        print("Current edit mode: \(KinFileManagerEncoderAndDecoder.editMode)")
+        if (KinFileManagerEncoderAndDecoder.editMode) {
+            print("Getting the current profiles profile ID to allow for edits to take place")
+            print(selectedData?.profileID)
+            profileDetails["profileID"] = selectedData!.profileID
+        }
+        
         //Now encode the text from the form
         addSaver.saveProfile(profileDetails: profileDetails)
         
@@ -131,6 +143,9 @@ class KinPersonalityProfileAddController : UITableViewController {
         //Check if the data is not nil
         if ((selectedData) != nil) {
             print("Has Edit Data")
+            
+            print("Setting the edit mode flag in the kin filemanager")
+            KinFileManagerEncoderAndDecoder.setEditMode(mode: true)
             
             //Now fill in the data that the profile has
             KinPersonalityName.text = selectedData?.name
@@ -172,6 +187,9 @@ class KinPersonalityProfileAddController : UITableViewController {
             
             print("Date Object:  \(String(describing: dateObject))")
             
+        } else {
+            //Set the edit mode to false to allow for the adding of a new profile
+            KinFileManagerEncoderAndDecoder.setEditMode(mode: false)
         }
         
     }

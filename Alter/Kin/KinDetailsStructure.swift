@@ -20,9 +20,9 @@ struct KinDetailsStructure : Codable {
     var spirtualExperience: String
     var physicalExperience: String
     var psychologicalExperiences: String
-    var profileID: Int
+    var profileID: String
     
-    init(kinName: String, kinSpecies: String, kinAwakenDate: String, kinMental: String, kinPhysical: String, kinSpiritual: String, kinBio: String, profileID: Int) {
+    init(kinName: String, kinSpecies: String, kinAwakenDate: String, kinMental: String, kinPhysical: String, kinSpiritual: String, kinBio: String, profileID: String) {
         self.name = kinName
         self.species = kinSpecies
         self.awakenDate = kinAwakenDate

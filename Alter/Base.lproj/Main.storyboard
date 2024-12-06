@@ -291,6 +291,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" title="Add"/>
                                 <connections>
+                                    <action selector="AddButtonTap:" destination="Ovv-IC-R4B" eventType="touchUpInside" id="4hI-wV-8FD"/>
                                     <segue destination="jjG-gT-6Dd" kind="presentation" identifier="profileManagerToAddEdit" id="ZRA-JT-1Rz"/>
                                 </connections>
                             </button>
@@ -302,6 +303,7 @@
                     <navigationItem key="navigationItem" id="zUJ-8W-0cf"/>
                     <connections>
                         <outlet property="EditButton" destination="y1q-ey-Zh0" id="Iwi-2Q-OqP"/>
+                        <outlet property="KinPersonalityAddButton" destination="ivZ-2r-uwd" id="wyH-ep-maz"/>
                         <outlet property="KinPersonalityTable" destination="AJA-XX-Opx" id="RZd-Ac-mLT"/>
                         <segue destination="ctD-Xn-hdK" kind="presentation" identifier="ViewProfileEntry" id="BUj-y6-zmY"/>
                     </connections>

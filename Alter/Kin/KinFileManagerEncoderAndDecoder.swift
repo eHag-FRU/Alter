@@ -22,7 +22,9 @@ class KinFileManagerEncoderAndDecoder {
     
     //Will be used to determine if in edit mode when encoding and writing to
     //the file system
-    private let editMode = false
+    //Set to public static as only one edit mode could exist
+    //Will allow for the toggle to be changed when profiles are edited
+    public static var editMode = false
     
     init() {
         //Grab the file directory for the documents directory
@@ -70,54 +72,93 @@ class KinFileManagerEncoderAndDecoder {
     }
     
     public func saveProfile(profileDetails: Dictionary<String, String>) -> Void {
-        //To save to the system we want to do the following
-        // 1. Encode for JSON format based on the Struct made
-        // 2. Write to a file titled with the name of the profile_species_id
-        // 3. Save file to the kinJSONDirectory for the app
-        
-        /* TESTING: NEED TO MAKE FOR ALL FIELDS */
-        let currentProfile = KinDetailsStructure(
-            kinName: profileDetails["kinName"]!,
-            kinSpecies: profileDetails["kinSpecies"]!,
-            kinAwakenDate: profileDetails["kinAwakenDate"]!,
-            kinMental: profileDetails["kinMental"]!,
-            kinPhysical: profileDetails["kinPhysical"]!,
-            kinSpiritual: profileDetails["kinSpiritual"]!,
-            kinBio:  profileDetails["kinBio"]!,
-            profileID: profileID
-        )
-        
-        //Now encode it
-        let profileContentToWriteToFile = encodeProfile(profile: currentProfile)
-        
-        print(profileContentToWriteToFile)
-        
-        print("NOW CREATING FILE!!")
-        
-        var fileName = String()
-        
         //Determine if in edit mode
-        if (!editMode) {
+        if (!KinFileManagerEncoderAndDecoder.editMode) {
+            //To save to the system we want to do the following
+            // 1. Encode for JSON format based on the Struct made
+            // 2. Write to a file titled with the name of the profile_species_id
+            // 3. Save file to the kinJSONDirectory for the app
+            
+            /* TESTING: NEED TO MAKE FOR ALL FIELDS */
+            let currentProfile = KinDetailsStructure(
+                kinName: profileDetails["kinName"]!,
+                kinSpecies: profileDetails["kinSpecies"]!,
+                kinAwakenDate: profileDetails["kinAwakenDate"]!,
+                kinMental: profileDetails["kinMental"]!,
+                kinPhysical: profileDetails["kinPhysical"]!,
+                kinSpiritual: profileDetails["kinSpiritual"]!,
+                kinBio:  profileDetails["kinBio"]!,
+                profileID: String(profileID)
+            )
+            
+            //Now encode it
+            let profileContentToWriteToFile = encodeProfile(profile: currentProfile)
+            
+            print(profileContentToWriteToFile)
+            
+            print("NOW CREATING FILE!!")
+            
+            var fileName = String()
+            
             //Now generate the file name
             fileName = kinJSONDirectory.path + "/\(profileID).json"
             
             
             //Update the ID so the next profile is valid
             profileID += 1
+            
+            //Now write it into the file
+            let successfulCreation = fileManager.createFile(atPath: fileName,
+                                                            contents: profileContentToWriteToFile)
+            
+            print("Created file \(fileName)?: \(successfulCreation)")
+            
+        } else {
+            print("IN EDIT MODE, ALREADY HAVE THE PROFILE ID!")
+            
+            
+            print("Current profile (SHOULD BE THE SAME PROFILE ID AS LOADED")
+            print(profileDetails)
+            
+            //Set the details to the changed details and now keep
+            //The same ID
+            let currentProfile = KinDetailsStructure(
+                kinName: profileDetails["kinName"]!,
+                kinSpecies: profileDetails["kinSpecies"]!,
+                kinAwakenDate: profileDetails["kinAwakenDate"]!,
+                kinMental: profileDetails["kinMental"]!,
+                kinPhysical: profileDetails["kinPhysical"]!,
+                kinSpiritual: profileDetails["kinSpiritual"]!,
+                kinBio:  profileDetails["kinBio"]!,
+                profileID: profileDetails["profileID"]!
+            )
+            
+            //Now encode it
+            let profileContentToWriteToFile = encodeProfile(profile: currentProfile)
+            
+            print(profileContentToWriteToFile)
+            
+            print("NOW CREATING FILE!!")
+            
+            var fileName = String()
+            
+            //Now generate the file name
+            fileName = kinJSONDirectory.path + "/\(profileDetails["profileID"]!).json"
+            
+            print(fileName)
+            
+            //Now write it into the file
+            let successfulCreation = fileManager.createFile(atPath: fileName,
+                                                            contents: profileContentToWriteToFile)
+            
+            print("Created file \(fileName)?: \(successfulCreation)")
         }
-        
-        //Now write it into the file
-        let successfulCreation = fileManager.createFile(atPath: fileName,
-                                                        contents: profileContentToWriteToFile)
-        
-        print("Created file \(fileName)?: \(successfulCreation)")
-        
     }
     
     func loadProfile(profileID: Int) -> KinDetailsStructure{
         //This will hold the profile when loaded
         //nil is given if the profile is not found
-        var profileDetails : KinDetailsStructure = KinDetailsStructure(kinName: "", kinSpecies: "", kinAwakenDate: "", kinMental: "", kinPhysical: "", kinSpiritual: "", kinBio: "", profileID: 0)
+        var profileDetails : KinDetailsStructure = KinDetailsStructure(kinName: "", kinSpecies: "", kinAwakenDate: "", kinMental: "", kinPhysical: "", kinSpiritual: "", kinBio: "", profileID: "0")
         
         //Grab the file from the file manager
         let loadProfileFileManager = FileManager.default
@@ -207,6 +248,11 @@ class KinFileManagerEncoderAndDecoder {
             try! FileManager.default.removeItem(at: file)
         }
         
+    }
+    
+    
+    static func setEditMode(mode: Bool) {
+        editMode = mode
     }
     
 }

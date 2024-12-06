@@ -35,6 +35,7 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
     //
     @IBOutlet weak var KinPersonalityTable: UITableView!
     
+    @IBOutlet weak var KinPersonalityAddButton: UIButton!
     
     //
     //  IBActions
@@ -52,6 +53,12 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
         //Perform the segue to the edit screen
         //self.performSegue(withIdentifier: "profileManagerToAddEdit", sender: self)
         
+    }
+    
+    
+    @IBAction func AddButtonTap(_ sender: Any) {
+        //Need to clear the data in the data selected if it is an add
+        dataToEdit = nil
     }
     
     //Handles the delegates editButton tap
