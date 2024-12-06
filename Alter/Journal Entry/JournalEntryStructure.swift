@@ -13,12 +13,13 @@ import Foundation
 //
 struct JournalEntryStructure : Codable {
     var entryName: String
-    //var entryDate: String
+    var entryText: String
+    var entryDate: String
     //var kinName: String
-    //var entryInfo: String
-    //var mentalExperience: String
-    //var physicalExperience: String
-    //var spiritualExperence: String
+    var mentalExperience: String
+    var physicalExperience: String
+    var spiritualExperence: String
+    var entryID: String
     
     //init(entryName: String, entryDate: String, kinName: String, entryInfo: String, mentalExperience: String, physicalExperience: String, spiritualExperence: String) {
         //self.entryName = entryName
@@ -30,7 +31,13 @@ struct JournalEntryStructure : Codable {
         //self.spiritualExperence = spiritualExperence
     //}
     
-    init(entryName: String) {
+    init(entryName: String, entryText: String, mentalExperience: String, physicalExperience: String, spiritualExperence: String, entryDate: String, entryID: String) {
         self.entryName = entryName
+        self.entryText = entryText
+        self.mentalExperience = mentalExperience
+        self.physicalExperience = physicalExperience
+        self.spiritualExperence = spiritualExperence
+        self.entryDate = entryDate
+        self.entryID = entryID
     }
 }

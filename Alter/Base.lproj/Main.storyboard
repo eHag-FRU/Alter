@@ -44,6 +44,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Entries" image="note.text" catalog="system" id="Qu5-gh-Oiz"/>
                     <connections>
+                        <outlet property="jorunalEntryTable" destination="4rl-1o-9r7" id="5kh-Jl-Auh"/>
                         <outlet property="newEntryButton" destination="HLY-db-EIx" id="NYe-vL-KfT"/>
                     </connections>
                 </viewController>
@@ -54,7 +55,7 @@
         <!--EntriesEditScreen-->
         <scene sceneID="Iqc-aR-B4w">
             <objects>
-                <tableViewController title="Journal Entry" id="I7G-Of-bib" userLabel="EntriesEditScreen" sceneMemberID="viewController">
+                <tableViewController title="Journal Entry" id="I7G-Of-bib" userLabel="EntriesEditScreen" customClass="JournalEntryAddController" customModule="Alter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uQM-Sl-s0W">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,7 +71,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Journal Entry Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VPh-vN-NV2">
-                                                    <rect key="frame" x="20" y="9" width="353" height="34"/>
+                                                    <rect key="frame" x="20" y="4" width="353" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -120,7 +121,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="f1y-Im-e8O">
+                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="f1y-Im-e8O">
                                                     <rect key="frame" x="135" y="2" width="238" height="41"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 </datePicker>
@@ -214,12 +215,18 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                                    <connections>
+                                                        <action selector="EntryEditAddSaveButtonClicked:" destination="I7G-Of-bib" eventType="touchUpInside" id="X8i-Ad-gYf"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ty3-Kb-VHn">
                                                     <rect key="frame" x="202" y="11" width="174" height="69"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                                    <connections>
+                                                        <action selector="EntryEditAddCancelButtonClicked:" destination="I7G-Of-bib" eventType="touchUpInside" id="5Yz-Pn-ryL"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -232,6 +239,18 @@
                             <outlet property="delegate" destination="I7G-Of-bib" id="DMc-9T-Bxu"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="EntryEditAddCancelButton" destination="ty3-Kb-VHn" id="vtt-FK-hhX"/>
+                        <outlet property="EntryEditAddSaveButton" destination="mCv-hJ-wX9" id="Gz1-oK-K5K"/>
+                        <outlet property="EntryEditAddTableView" destination="uQM-Sl-s0W" id="TuP-i3-nFI"/>
+                        <outlet property="journalEntryDate" destination="f1y-Im-e8O" id="zIE-Xy-baL"/>
+                        <outlet property="journalEntryKinPersonality" destination="nlj-w1-hF7" id="e0R-jx-nXY"/>
+                        <outlet property="journalEntryMental" destination="AGy-7y-LP3" id="cAs-uo-BCD"/>
+                        <outlet property="journalEntryPhysical" destination="e28-Ed-27d" id="NgZ-yn-O90"/>
+                        <outlet property="journalEntrySpritual" destination="zCr-ry-sse" id="gEz-kR-MVJ"/>
+                        <outlet property="journalEntryText" destination="Ohq-iv-NA1" id="sIT-cg-cHh"/>
+                        <outlet property="journalEntryTitle" destination="VPh-vN-NV2" id="HKb-bl-jq5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cLu-7X-V82" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

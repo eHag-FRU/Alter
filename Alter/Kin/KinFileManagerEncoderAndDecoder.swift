@@ -255,4 +255,26 @@ class KinFileManagerEncoderAndDecoder {
         editMode = mode
     }
     
+    
+    //This will be used to populate the list of kin profiles that can be selected when writing a journal entry
+    static func getAllProfileNamesSpecies() -> [String] {
+        //Create an instance of itself
+        let fileManager = KinFileManagerEncoderAndDecoder()
+        
+        //Now collect all the profile names
+        let profileNames = fileManager.profileNames()
+        
+        //Holds the names
+        var result: [String] = []
+        
+        //Now for each one grab the profile's kin name stored in the JSON
+        for profileID in profileNames {
+            //Make a variable to hold the profile
+            var currentProfile = fileManager.loadProfile(profileID: profileID)
+            result.append("\(currentProfile.name): [\(currentProfile.species)]")
+        }
+        
+        return result
+    }
+    
 }

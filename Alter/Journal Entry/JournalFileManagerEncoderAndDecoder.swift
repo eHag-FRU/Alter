@@ -6,22 +6,25 @@
 //
 
 import Foundation
+
 class JournalFileManagerEncoderAndDecoder {
     
-    //Gives the journalJSONDirectory a temp directory until assigning in the init constructor
+    //Gives the kinJSONDirectory a temp directory until assigning in the init constructor
     private var journalJSONDirectory : URL = FileManager.default.temporaryDirectory
     
     //This will hold the global ID of the next profile to be assigned
     //This will allow for a unique profile to be saved for many kin/personalities
     //of the same name and species
-    private var journalEntryID : Int = 1
+    private var entryID : Int = 1
     
     private let fileManager = FileManager.default
     
     
     //Will be used to determine if in edit mode when encoding and writing to
     //the file system
-    private let editMode = false
+    //Set to public static as only one edit mode could exist
+    //Will allow for the toggle to be changed when profiles are edited
+    public static var editMode = false
     
     init() {
         //Grab the file directory for the documents directory
@@ -40,7 +43,7 @@ class JournalFileManagerEncoderAndDecoder {
         }
         
         //Now need to set the profile id to keep going from as the count of files plus 1
-        self.journalEntryID = highestID()
+        self.entryID = highestID()
         
         print(documentsDirectory)
     }
@@ -59,62 +62,103 @@ class JournalFileManagerEncoderAndDecoder {
         return data!
     }
     
-    private func decodeEntry(entryJSONDate: Data) -> JournalEntryStructure {
+    private func decodeEntry(jorunalEntryJSONDate: Data) -> JournalEntryStructure {
         //Set up the decoder
         let jsonDecorder = JSONDecoder()
         
-        let decodedData = try! jsonDecorder.decode(JournalEntryStructure.self, from: entryJSONDate)
+        let decodedData = try! jsonDecorder.decode(JournalEntryStructure.self, from: jorunalEntryJSONDate)
         
         return decodedData
     }
     
-    public func saveEntry(profileDetails: Dictionary<String, String>) -> Void {
-        //To save to the system we want to do the following
-        // 1. Encode for JSON format based on the Struct made
-        // 2. Write to a file titled with the name of the profile_species_id
-        // 3. Save file to the kinJSONDirectory for the app
-        
-        /* TESTING: NEED TO MAKE FOR ALL FIELDS */
-        let currentEntry = JournalEntryStructure(
-            entryName: profileDetails["entryName"]!
-        )
-        
-        //Now encode it
-        let entryContentToWriteToFile = encodeEntry(entry: currentEntry)
-        
-        print(entryContentToWriteToFile)
-        
-        print("NOW CREATING FILE!!")
-        
-        var fileName = String()
-        
+    public func saveEntry(entryDetails: Dictionary<String, String>) -> Void {
         //Determine if in edit mode
-        if (!editMode) {
+        if (!JournalFileManagerEncoderAndDecoder.editMode) {
+            //To save to the system we want to do the following
+            // 1. Encode for JSON format based on the Struct made
+            // 2. Write to a file titled with the name of the profile_species_id
+            // 3. Save file to the kinJSONDirectory for the app
+            
+            /* TESTING: NEED TO MAKE FOR ALL FIELDS */
+            let currentEntry = JournalEntryStructure(
+                entryName: entryDetails["entryName"]!,
+                entryText: entryDetails["entryText"]!,
+                mentalExperience: entryDetails["mentalExperience"]!,
+                physicalExperience: entryDetails["physicalExperience"]!,
+                spiritualExperence: entryDetails["spiritualExperence"]!,
+                entryDate: entryDetails["entryDate"]!
+            )
+            
+            //Now encode it
+            let entryContentToWriteToFile = encodeEntry(entry: currentEntry)
+            
+            print(entryContentToWriteToFile)
+            
+            print("NOW CREATING FILE!!")
+            
+            var fileName = String()
+            
             //Now generate the file name
-            fileName = journalJSONDirectory.path + "/\(journalEntryID).json"
+            fileName = journalJSONDirectory.path + "/\(entryID).json"
             
             
             //Update the ID so the next profile is valid
-            journalEntryID += 1
+            entryID += 1
+            
+            //Now write it into the file
+            let successfulCreation = fileManager.createFile(atPath: fileName,
+                                                            contents: entryContentToWriteToFile)
+            
+            print("Created file \(fileName)?: \(successfulCreation)")
+            
+        } else {
+            print("IN EDIT MODE, ALREADY HAVE THE PROFILE ID!")
+            
+            
+            print("Current profile (SHOULD BE THE SAME PROFILE ID AS LOADED")
+            print(entryDetails)
+            
+            //Set the details to the changed details and now keep
+            //The same ID
+            let currentEntry = JournalEntryStructure(
+                entryName: entryDetails["entryName"]!,
+                entryText: entryDetails["entryText"]!,
+                mentalExperience: entryDetails["mentalExperience"]!,
+                physicalExperience: entryDetails["physicalExperience"]!,
+                spiritualExperence: entryDetails["spiritualExperence"]!,
+                entryDate: entryDetails["entryDate"]!
+            )
+            
+            //Now encode it
+            let entryContentToWriteToFile = encodeEntry(entry: currentEntry)
+            
+            print(entryContentToWriteToFile)
+            
+            print("NOW CREATING FILE!!")
+            
+            var fileName = String()
+            
+            //Now generate the file name
+            fileName = journalJSONDirectory.path + "/\(entryDetails["entryID"]!).json"
+            
+            print(fileName)
+            
+            //Now write it into the file
+            let successfulCreation = fileManager.createFile(atPath: fileName,
+                                                            contents: entryContentToWriteToFile)
+            
+            print("Created file \(fileName)?: \(successfulCreation)")
         }
-        
-        //Now write it into the file
-        let successfulCreation = fileManager.createFile(atPath: fileName,
-                                                        contents: entryContentToWriteToFile)
-        
-        print("Created file \(fileName)?: \(successfulCreation)")
-        
     }
     
-    func loadProfile(profileID: Int) -> JournalEntryStructure{
+    func loadEntry(entryID: Int) -> JournalEntryStructure{
         //This will hold the profile when loaded
         //nil is given if the profile is not found
-        //var entryDetails : JournalEntryStructure = JournalEntryStructure(entryName: "", entryDate: "", kinName: "", entryInfo: "", mentalExperience: "", physicalExperience: "", spiritualExperence: "")
-        var entryDetails : JournalEntryStructure = JournalEntryStructure(entryName: "")
+        var entryDetails : JournalEntryStructure = JournalEntryStructure(entryName:"", entryText: "", mentalExperience: "", physicalExperience: "", spiritualExperence: "", entryDate: "")
         
         //Grab the file from the file manager
         let loadEntryFileManager = FileManager.default
-        let loadEntryFileManagerPath =  journalJSONDirectory.appendingPathComponent("\(journalEntryID).json")
+        let loadEntryFileManagerPath = journalJSONDirectory.appendingPathComponent("\(entryID).json")
         guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first else { return entryDetails}
         //let numberOfItems = try! FileManager.default.contentsOfDirectory(atPath:documentsPath.path ).count
         
@@ -126,9 +170,9 @@ class JournalFileManagerEncoderAndDecoder {
             //let profileData = loadProfileFileManager.contents(atPath: loadProfileFileManagerPath.absoluteString)
             
             //Now send it to decode to get the profile struct back
-            entryDetails = decodeEntry(entryJSONDate: try! Data(contentsOf: loadEntryFileManagerPath))
+            entryDetails = decodeEntry(jorunalEntryJSONDate: try! Data(contentsOf: loadEntryFileManagerPath))
         } else {
-            print("COULD NOT FIND ENTRY WITH ID \(journalEntryID)")
+            print("COULD NOT FIND ENTRY WITH ID \(entryID)")
         }
         
         
@@ -185,7 +229,7 @@ class JournalFileManagerEncoderAndDecoder {
         }
         
         
-        print("JournalFileManagerEncoderAndDecoder Names: \(fileNames)")
+        print("JournalEntryFileManagerEncoderAndDecoder Names: \(fileNames)")
         
         return fileNames
         
@@ -200,6 +244,33 @@ class JournalFileManagerEncoderAndDecoder {
             try! FileManager.default.removeItem(at: file)
         }
         
+    }
+    
+    
+    static func setEditMode(mode: Bool) {
+        editMode = mode
+    }
+    
+    
+    //This will be used to populate the list of kin profiles that can be selected when writing a journal entry
+    static func getAllEntryNamesSpecies() -> [String] {
+        //Create an instance of itself
+        let fileManager = JournalFileManagerEncoderAndDecoder()
+        
+        //Now collect all the profile names
+        let entryNames = fileManager.entryNames()
+        
+        //Holds the names
+        var result: [String] = []
+        
+        //Now for each one grab the profile's kin name stored in the JSON
+        for entryID in entryNames {
+            //Make a variable to hold the profile
+            var currentEntry = fileManager.loadEntry(entryID: entryID)
+            result.append("\(currentEntry.entryName)")
+        }
+        
+        return result
     }
     
 }

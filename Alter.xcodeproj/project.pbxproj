@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC18C4202D02C19F006CB515 /* JournalEntryAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18C41F2D02C19F006CB515 /* JournalEntryAddController.swift */; };
+		AC18C4222D02C603006CB515 /* JournalEntryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18C4212D02C603006CB515 /* JournalEntryTableCell.swift */; };
 		AC3246492CF3D1660080DD1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3246482CF3D1660080DD1C /* AppDelegate.swift */; };
 		AC32464B2CF3D1660080DD1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32464A2CF3D1660080DD1C /* SceneDelegate.swift */; };
 		AC32464D2CF3D1660080DD1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32464C2CF3D1660080DD1C /* ViewController.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC18C41F2D02C19F006CB515 /* JournalEntryAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryAddController.swift; sourceTree = "<group>"; };
+		AC18C4212D02C603006CB515 /* JournalEntryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryTableCell.swift; sourceTree = "<group>"; };
 		AC3246452CF3D1660080DD1C /* Alter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3246482CF3D1660080DD1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC32464A2CF3D1660080DD1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 				AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */,
 				AC9C14C62D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift */,
 				AC9C14C82D0296F80029CD9D /* JournalEntryManagerViewController.swift */,
+				AC18C41F2D02C19F006CB515 /* JournalEntryAddController.swift */,
+				AC18C4212D02C603006CB515 /* JournalEntryTableCell.swift */,
 			);
 			path = "Journal Entry";
 			sourceTree = "<group>";
@@ -301,12 +307,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC18C4202D02C19F006CB515 /* JournalEntryAddController.swift in Sources */,
 				AC32464D2CF3D1660080DD1C /* ViewController.swift in Sources */,
 				AC5AF6A62CFE9A3700814BE2 /* JournalEntryStructure.swift in Sources */,
 				AC32467E2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift in Sources */,
 				AC65D26B2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift in Sources */,
 				AC32467A2CF3D31F0080DD1C /* KinDetailsStructure.swift in Sources */,
 				AC9C14C72D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift in Sources */,
+				AC18C4222D02C603006CB515 /* JournalEntryTableCell.swift in Sources */,
 				AC509C6C2D026D61003AB076 /* KinPersonalityProfileViewController.swift in Sources */,
 				AC3246492CF3D1660080DD1C /* AppDelegate.swift in Sources */,
 				AC32464B2CF3D1660080DD1C /* SceneDelegate.swift in Sources */,
