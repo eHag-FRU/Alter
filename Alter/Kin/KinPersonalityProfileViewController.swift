@@ -19,6 +19,15 @@ class KinPersonalityProfileViewController : UITableViewController {
     //  IBOutlets
     //
     
+    @IBOutlet weak var kinName: UILabel!
+    @IBOutlet weak var kinSpecies: UILabel!
+    @IBOutlet weak var kinAwakenDate: UILabel!
+    @IBOutlet weak var kinBiography: UITextView!
+    @IBOutlet weak var kinMental: UILabel!
+    @IBOutlet weak var kinPhysical: UILabel!
+    @IBOutlet weak var kinSpiritual: UILabel!
+    @IBOutlet weak var kinBio: UITextView!
+    
     //
     //  IBActions
     //
@@ -40,12 +49,24 @@ class KinPersonalityProfileViewController : UITableViewController {
         if ((selectedData) != nil) {
             print("Has Data")
             
-            print(selectedData?.awakenDate)
+            print(selectedData?.name)
+            
+            //Set the label data to view
+            kinName.text = selectedData?.name
+            kinSpecies.text = selectedData?.species
+            kinAwakenDate.text = selectedData?.awakenDate
+            kinMental.text = selectedData?.psychologicalExperiences
+            kinPhysical.text = selectedData?.physicalExperience
+            kinSpiritual.text = selectedData?.spirtualExperience
+            kinBio.text = selectedData?.biography
+            
         }
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        //Empty the selected data
+        selectedData = nil
         
     }
     

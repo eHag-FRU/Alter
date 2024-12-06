@@ -16,15 +16,20 @@ struct KinDetailsStructure : Codable {
     var name: String
     var species: String
     var awakenDate: String
-    //var biography: String
-    //var spirtualExperience: Bool
-    //var physicalExperience: Bool
-    //var psychologicalExperiences: Bool
+    var biography: String
+    var spirtualExperience: String
+    var physicalExperience: String
+    var psychologicalExperiences: String
+    var profileID: Int
     
-    init(kinName: String, kinSpecies: String, kinAwakenDate: String) {
+    init(kinName: String, kinSpecies: String, kinAwakenDate: String, kinMental: String, kinPhysical: String, kinSpiritual: String, kinBio: String, profileID: Int) {
         self.name = kinName
         self.species = kinSpecies
         self.awakenDate = kinAwakenDate
-        //self.biography = biography
+        self.biography = kinBio
+        self.psychologicalExperiences = kinMental
+        self.physicalExperience = kinPhysical
+        self.spirtualExperience = kinSpiritual
+        self.profileID = profileID
     }
 }

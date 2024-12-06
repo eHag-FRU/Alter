@@ -27,6 +27,10 @@ class KinPersonalityProfileAddController : UITableViewController {
     @IBOutlet weak var KinPersonalityCancelButton: UIButton!
     @IBOutlet weak var KinPersonalityAwakenDatePicker: UIDatePicker!
     @IBOutlet weak var KinPersonalityBiography: UITextView!
+    @IBOutlet weak var kinMental: UISwitch!
+    @IBOutlet weak var kinPhysical: UISwitch!
+    @IBOutlet weak var kinSpiritual: UISwitch!
+    
     
     //
     //  IBActions
@@ -42,7 +46,44 @@ class KinPersonalityProfileAddController : UITableViewController {
         //Pull each control and save into the dictonary
         profileDetails["kinName"] = KinPersonalityName.text
         profileDetails["kinSpecies"] = KinPersonalitySpeciesTextField.text
-        //profileDetails["kinBiography"] = KinPersonalityBiography.text
+        
+        //Convert the T/F value to Yes or No
+        if (kinMental.isOn) {
+            //True
+            profileDetails["kinMental"] = "Yes"
+        } else {
+            //No
+            profileDetails["kinMental"] = "No"
+        }
+        
+        //Convert the T/F value to Yes or No
+        if (kinPhysical.isOn) {
+            //True
+            profileDetails["kinPhysical"] = "Yes"
+        } else {
+            //No
+            profileDetails["kinPhysical"] = "No"
+        }
+        
+        //Convert the T/F value to Yes or No
+        if (kinPhysical.isOn) {
+            //True
+            profileDetails["kinPhysical"] = "Yes"
+        } else {
+            //No
+            profileDetails["kinPhysical"] = "No"
+        }
+        
+        //Convert the T/F value to Yes or No
+        if (kinSpiritual.isOn) {
+            //True
+            profileDetails["kinSpiritual"] = "Yes"
+        } else {
+            //No
+            profileDetails["kinSpiritual"] = "No"
+        }
+        
+        profileDetails["kinBio"] = KinPersonalityBiography.text
         
         //Code from:
         //https:\/\/stackoverflow
@@ -51,8 +92,11 @@ class KinPersonalityProfileAddController : UITableViewController {
         let timeFormatter = DateFormatter()
             timeFormatter.dateStyle = DateFormatter.Style.short
 
-        var strDate = timeFormatter.string(from: KinPersonalityAwakenDatePicker.date)
-        
+        let strDate = timeFormatter.string(from: KinPersonalityAwakenDatePicker.date)
+        //
+        //  End code from StackOverFlow
+        //
+
         //Add the date to the profileDetails dictonary
         profileDetails["kinAwakenDate"] = strDate
         
@@ -86,7 +130,48 @@ class KinPersonalityProfileAddController : UITableViewController {
         
         //Check if the data is not nil
         if ((selectedData) != nil) {
-            print("Has Data")
+            print("Has Edit Data")
+            
+            //Now fill in the data that the profile has
+            KinPersonalityName.text = selectedData?.name
+            KinPersonalitySpeciesTextField.text = selectedData?.species
+            KinPersonalityBiography.text = selectedData?.biography
+            
+            //Handle the toggle switches
+            if(selectedData?.psychologicalExperiences == "Yes") {
+                kinMental.setOn(true, animated: true)
+            } else {
+                kinMental.setOn(false, animated: true)
+            }
+            
+            if(selectedData?.spirtualExperience == "Yes") {
+                kinSpiritual.setOn(true, animated: true)
+            } else {
+                kinMental.setOn(false, animated: true)
+            }
+            
+            if(selectedData?.physicalExperience == "Yes") {
+                kinPhysical.setOn(true, animated: true)
+            } else{
+                kinPhysical.setOn(false, animated: true)
+            }
+            
+            
+            //Handle the string to NSDate for the date picker
+            //Date string format
+            let dateFormat = "mm/dd/yy"
+            
+            //Make a date formatter
+            let dateFormater = DateFormatter()
+            
+            //Set the date formatters format string that was set above to match what is in the JSON object
+            dateFormater.dateFormat = dateFormat
+            
+            //Now convert the date string to an NSDate
+            let dateObject = dateFormater.date(from: dateFormat)
+            
+            print("Date Object:  \(String(describing: dateObject))")
+            
         }
         
     }

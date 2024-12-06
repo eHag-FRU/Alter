@@ -20,9 +20,11 @@
 		AC32467E2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32467D2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift */; };
 		AC3246802CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */; };
 		AC509C6C2D026D61003AB076 /* KinPersonalityProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */; };
-		AC5AF6A22CFE910700814BE2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5AF6A12CFE910700814BE2 /* SettingsViewController.swift */; };
 		AC5AF6A62CFE9A3700814BE2 /* JournalEntryStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */; };
 		AC65D26B2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */; };
+		AC97CC162D02A1F500B0B4FC /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC97CC152D02A1F500B0B4FC /* ProfileTableCell.swift */; };
+		AC9C14C72D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9C14C62D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift */; };
+		AC9C14C92D0296F80029CD9D /* JournalEntryManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9C14C82D0296F80029CD9D /* JournalEntryManagerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,9 +62,11 @@
 		AC32467D2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinFileManagerEncoderAndDecoder.swift; sourceTree = "<group>"; };
 		AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityProfileAddController.swift; sourceTree = "<group>"; };
 		AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityProfileViewController.swift; sourceTree = "<group>"; };
-		AC5AF6A12CFE910700814BE2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryStructure.swift; sourceTree = "<group>"; };
 		AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityManagerViewController.swift; sourceTree = "<group>"; };
+		AC97CC152D02A1F500B0B4FC /* ProfileTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
+		AC9C14C62D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFileManagerEncoderAndDecoder.swift; sourceTree = "<group>"; };
+		AC9C14C82D0296F80029CD9D /* JournalEntryManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryManagerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				AC5AF6A42CFE9A2200814BE2 /* Journal Entry */,
-				AC5AF6A02CFE90F300814BE2 /* Settings */,
 				AC3246782CF3D2F10080DD1C /* Kin */,
 				AC3246482CF3D1660080DD1C /* AppDelegate.swift */,
 				AC32464A2CF3D1660080DD1C /* SceneDelegate.swift */,
@@ -152,22 +155,17 @@
 				AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */,
 				AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */,
 				AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */,
+				AC97CC152D02A1F500B0B4FC /* ProfileTableCell.swift */,
 			);
 			path = Kin;
-			sourceTree = "<group>";
-		};
-		AC5AF6A02CFE90F300814BE2 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				AC5AF6A12CFE910700814BE2 /* SettingsViewController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		AC5AF6A42CFE9A2200814BE2 /* Journal Entry */ = {
 			isa = PBXGroup;
 			children = (
 				AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */,
+				AC9C14C62D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift */,
+				AC9C14C82D0296F80029CD9D /* JournalEntryManagerViewController.swift */,
 			);
 			path = "Journal Entry";
 			sourceTree = "<group>";
@@ -308,11 +306,13 @@
 				AC32467E2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift in Sources */,
 				AC65D26B2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift in Sources */,
 				AC32467A2CF3D31F0080DD1C /* KinDetailsStructure.swift in Sources */,
+				AC9C14C72D028F910029CD9D /* JournalFileManagerEncoderAndDecoder.swift in Sources */,
 				AC509C6C2D026D61003AB076 /* KinPersonalityProfileViewController.swift in Sources */,
 				AC3246492CF3D1660080DD1C /* AppDelegate.swift in Sources */,
 				AC32464B2CF3D1660080DD1C /* SceneDelegate.swift in Sources */,
 				AC3246802CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift in Sources */,
-				AC5AF6A22CFE910700814BE2 /* SettingsViewController.swift in Sources */,
+				AC97CC162D02A1F500B0B4FC /* ProfileTableCell.swift in Sources */,
+				AC9C14C92D0296F80029CD9D /* JournalEntryManagerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
