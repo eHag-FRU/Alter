@@ -24,6 +24,9 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
     
     var dataToEdit: KinDetailsStructure?
     
+    @IBOutlet weak var EditButton: UIButton!
+    
+    
     //
     //  IBOutlets
     //
@@ -34,6 +37,13 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
     //  IBActions
     //
     
+    @IBAction func EditButtonTap(_ sender: Any) {
+        
+        KinPersonalityTable.setEditing(!KinPersonalityTable.isEditing, animated: true)
+        
+        self.performSegue(withIdentifier: "profileManagerToAddEdit", sender: self)
+        
+    }
     
     
     //
@@ -91,11 +101,17 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
         
         
         
+        
+        
         return cell
         
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Seugues over to the profile view
+        self.performSegue(withIdentifier: "ViewProfileEntry", sender: self)
+    }
     
     //
     //  Function Overrides
@@ -134,9 +150,20 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
             if let data = dataToEdit {
                 vc?.selectedData = data
             }
+        } else if segue.identifier == "ViewProfileEntry" {
+            //View
+            
+            //Grabs the next segue
+            let vc = segue.destination as? KinPersonalityProfileViewController
+            
+            //Sets the profileManager view controller instance
+            //vc?.profileManager = self
+            
+            //Passes over the data to edit
+            vc?.selectedData = dataToEdit
+        
+            
+            print("SELECTED CELL")
         }
     }
-    
-    
-    
 }

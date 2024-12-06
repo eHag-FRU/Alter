@@ -19,6 +19,7 @@
 		AC32467A2CF3D31F0080DD1C /* KinDetailsStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3246792CF3D31F0080DD1C /* KinDetailsStructure.swift */; };
 		AC32467E2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32467D2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift */; };
 		AC3246802CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */; };
+		AC509C6C2D026D61003AB076 /* KinPersonalityProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */; };
 		AC5AF6A22CFE910700814BE2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5AF6A12CFE910700814BE2 /* SettingsViewController.swift */; };
 		AC5AF6A62CFE9A3700814BE2 /* JournalEntryStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */; };
 		AC65D26B2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */; };
@@ -58,6 +59,7 @@
 		AC3246792CF3D31F0080DD1C /* KinDetailsStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinDetailsStructure.swift; sourceTree = "<group>"; };
 		AC32467D2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinFileManagerEncoderAndDecoder.swift; sourceTree = "<group>"; };
 		AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityProfileAddController.swift; sourceTree = "<group>"; };
+		AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityProfileViewController.swift; sourceTree = "<group>"; };
 		AC5AF6A12CFE910700814BE2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AC5AF6A52CFE9A3700814BE2 /* JournalEntryStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryStructure.swift; sourceTree = "<group>"; };
 		AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinPersonalityManagerViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				AC3246792CF3D31F0080DD1C /* KinDetailsStructure.swift */,
 				AC32467D2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift */,
 				AC32467F2CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift */,
+				AC509C6B2D026D61003AB076 /* KinPersonalityProfileViewController.swift */,
 				AC65D26A2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift */,
 			);
 			path = Kin;
@@ -305,6 +308,7 @@
 				AC32467E2CF3DE710080DD1C /* KinFileManagerEncoderAndDecoder.swift in Sources */,
 				AC65D26B2CF54DB700E62B31 /* KinPersonalityManagerViewController.swift in Sources */,
 				AC32467A2CF3D31F0080DD1C /* KinDetailsStructure.swift in Sources */,
+				AC509C6C2D026D61003AB076 /* KinPersonalityProfileViewController.swift in Sources */,
 				AC3246492CF3D1660080DD1C /* AppDelegate.swift in Sources */,
 				AC32464B2CF3D1660080DD1C /* SceneDelegate.swift in Sources */,
 				AC3246802CF3EA5B0080DD1C /* KinPersonalityProfileAddController.swift in Sources */,

@@ -43,7 +43,7 @@ class KinFileManagerEncoderAndDecoder {
         //Now need to set the profile id to keep going from as the count of files plus 1
         self.profileID = highestID()
         
-        //print(documentsDirectory)
+        print(documentsDirectory)
     }
     
     private func encodeProfile(profile: KinDetailsStructure) -> Data {
