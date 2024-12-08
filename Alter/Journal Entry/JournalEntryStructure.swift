@@ -15,7 +15,7 @@ struct JournalEntryStructure : Codable {
     var entryName: String
     var entryText: String
     var entryDate: String
-    //var kinName: String
+    var kinName: String
     var mentalExperience: String
     var physicalExperience: String
     var spiritualExperence: String
@@ -31,7 +31,7 @@ struct JournalEntryStructure : Codable {
         //self.spiritualExperence = spiritualExperence
     //}
     
-    init(entryName: String, entryText: String, mentalExperience: String, physicalExperience: String, spiritualExperence: String, entryDate: String, entryID: String) {
+    init(entryName: String, entryText: String, mentalExperience: String, physicalExperience: String, spiritualExperence: String, entryID: String, entryDate: String, kinName: String) {
         self.entryName = entryName
         self.entryText = entryText
         self.mentalExperience = mentalExperience
@@ -39,5 +39,6 @@ struct JournalEntryStructure : Codable {
         self.spiritualExperence = spiritualExperence
         self.entryDate = entryDate
         self.entryID = entryID
+        self.kinName = kinName
     }
 }

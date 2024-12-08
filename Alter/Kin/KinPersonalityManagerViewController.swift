@@ -2,7 +2,7 @@
 //  KinPersonalityManagerViewController.swift
 //  Alter
 //
-//  Created by Guest User on 11/25/24.
+//  Created by Elliott Hager on 11/25/24.
 //
 
 import Foundation
@@ -219,6 +219,11 @@ class KinPersonalityManagerViewController : UIViewController, UITableViewDelegat
             print("SELECTED CELL")
         }
     }
+    
+    
+    
+    
+    
     
     //
     //Objective-C Functions

@@ -91,10 +91,12 @@ class KinPersonalityProfileAddController : UITableViewController {
         //https:\/\/stackoverflow
         //.com/questions/26667618/how-to-get-data-from-uidatepicker-swift
         //Grab the Date
-        let timeFormatter = DateFormatter()
-            timeFormatter.dateStyle = DateFormatter.Style.short
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = DateFormatter.Style.short
 
-        let strDate = timeFormatter.string(from: KinPersonalityAwakenDatePicker.date)
+        print("Date picker date: \(KinPersonalityAwakenDatePicker.date)")
+        
+        let strDate = dateFormatter.string(from: KinPersonalityAwakenDatePicker.date)
         //
         //  End code from StackOverFlow
         //
@@ -174,7 +176,7 @@ class KinPersonalityProfileAddController : UITableViewController {
             
             //Handle the string to NSDate for the date picker
             //Date string format
-            let dateFormat = "mm/dd/yy"
+            let dateFormat = "MM/dd/yy"
             
             //Make a date formatter
             let dateFormater = DateFormatter()
@@ -182,10 +184,19 @@ class KinPersonalityProfileAddController : UITableViewController {
             //Set the date formatters format string that was set above to match what is in the JSON object
             dateFormater.dateFormat = dateFormat
             
-            //Now convert the date string to an NSDate
-            let dateObject = dateFormater.date(from: dateFormat)
+  
+            //Grab the awaken date and force unwrap, there will always be
+            //an awaken date, so we can safely force unwrap it
+            let currentAwakenDate: String = selectedData!.awakenDate
             
-            print("Date Object:  \(String(describing: dateObject))")
+            //Now convert the date string to an NSDate
+            let dateObject = dateFormater.date(from: currentAwakenDate)
+            
+            //print("Date Object:  \(String(describing: dateObject))")
+            
+            //Now set the date picker to the date
+            KinPersonalityAwakenDatePicker.date = dateObject!
+            
             
         } else {
             //Set the edit mode to false to allow for the adding of a new profile

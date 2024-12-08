@@ -86,7 +86,9 @@ class JournalFileManagerEncoderAndDecoder {
                 mentalExperience: entryDetails["mentalExperience"]!,
                 physicalExperience: entryDetails["physicalExperience"]!,
                 spiritualExperence: entryDetails["spiritualExperence"]!,
-                entryDate: entryDetails["entryDate"]!
+                entryID: String(entryID),
+                entryDate: entryDetails["entryDate"]!,
+                kinName: entryDetails["kinName"]!
             )
             
             //Now encode it
@@ -126,7 +128,9 @@ class JournalFileManagerEncoderAndDecoder {
                 mentalExperience: entryDetails["mentalExperience"]!,
                 physicalExperience: entryDetails["physicalExperience"]!,
                 spiritualExperence: entryDetails["spiritualExperence"]!,
-                entryDate: entryDetails["entryDate"]!
+                entryID: entryDetails["entryID"]!,
+                entryDate: entryDetails["entryDate"]!,
+                kinName: entryDetails["kinName"]!
             )
             
             //Now encode it
@@ -154,7 +158,7 @@ class JournalFileManagerEncoderAndDecoder {
     func loadEntry(entryID: Int) -> JournalEntryStructure{
         //This will hold the profile when loaded
         //nil is given if the profile is not found
-        var entryDetails : JournalEntryStructure = JournalEntryStructure(entryName:"", entryText: "", mentalExperience: "", physicalExperience: "", spiritualExperence: "", entryDate: "")
+        var entryDetails : JournalEntryStructure = JournalEntryStructure(entryName:"", entryText: "", mentalExperience: "", physicalExperience: "", spiritualExperence: "", entryID: "0", entryDate: "", kinName: "")
         
         //Grab the file from the file manager
         let loadEntryFileManager = FileManager.default
@@ -266,7 +270,7 @@ class JournalFileManagerEncoderAndDecoder {
         //Now for each one grab the profile's kin name stored in the JSON
         for entryID in entryNames {
             //Make a variable to hold the profile
-            var currentEntry = fileManager.loadEntry(entryID: entryID)
+            let currentEntry = fileManager.loadEntry(entryID: entryID)
             result.append("\(currentEntry.entryName)")
         }
         

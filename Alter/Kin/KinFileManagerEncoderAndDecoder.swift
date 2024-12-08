@@ -271,7 +271,7 @@ class KinFileManagerEncoderAndDecoder {
         for profileID in profileNames {
             //Make a variable to hold the profile
             var currentProfile = fileManager.loadProfile(profileID: profileID)
-            result.append("\(currentProfile.name): [\(currentProfile.species)]")
+            result.append("\(currentProfile.name) [Species: \(currentProfile.species)]")
         }
         
         return result
